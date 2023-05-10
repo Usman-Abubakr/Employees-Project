@@ -36,8 +36,9 @@ Test - Usman
 2. Change to dev branch: `git checkout origin/dev`
 3. Create new feature branch: `git checkout -b <branch-name>`
 4. Push to remote feature branch (will create the new remote branch): `git push -u origin <branch-name>`
-5. Let team know a feature is ready to merge with dev branch.
-6. Create new branch for each new features.
+5. Add commits `git add .` `git commit -m ""` and follow step 4 to push to remote.
+6. Let team know a feature is ready to merge with dev branch.
+7. Create new branch for each new features.
 
 ## Updating feature branch from dev branch
 
