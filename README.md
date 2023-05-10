@@ -44,6 +44,6 @@ Test - Usman
 
 1. Switch to dev branch: git `git checkout dev`
 2. Update branch: `git pull`
-3. Switch to dev branch: `git checkout <branch-name>`
+3. Switch to feature branch: `git checkout <branch-name>`
 4. Merging dev to feature branch:`git merge origin/dev`
 5. Push update to remote feature branch`git push <remote-name> <branch-name>`
