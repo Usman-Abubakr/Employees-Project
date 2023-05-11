@@ -36,3 +36,9 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Log files ###
+*.log
+
+### IDE Config file ###
+.idea/workspace.xml
