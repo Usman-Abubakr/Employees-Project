@@ -11,5 +11,9 @@ public class App {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+//        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
+//        employeeBST.populateTree(employees);
+
     }
 }

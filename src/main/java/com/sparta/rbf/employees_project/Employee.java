@@ -14,4 +14,7 @@ public class Employee {
     private Date dateOfJoining;
     private int salary;
 
+    public String getLastName() {
+        return this.lastName;
+    }
 }
