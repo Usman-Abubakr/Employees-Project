@@ -2,36 +2,83 @@ package com.sparta.rbf.employees_project;
 import com.sparta.rbf.employees_project.binary_tree.*;
 import com.sparta.rbf.employees_project.employee.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        System.out.println("Loading 1000 employees from the csv file...");
-        String[] employeeArray = EmployeeFormatter.getNumEmployees(1000);
-        System.out.println("Loading Complete");
+        String[] employeeArray = loadEmployees();
+
         ArrayList<Employee> employeeArrayList = EmployeeFormatter.convertArrayToList(employeeArray);
-        System.out.println("Populating binary tree...");
-        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
-        employeeBST.populateTree(employeeArrayList);
-        System.out.println("Populating Complete");
+
+        EmployeeBinaryTree employeeBST = populateTree(employeeArrayList);
+
+
+        String choice;
+        do {
+            choice = menuItems();
+            switch(choice) {
+                case "1":
+                    searchData(employeeBST);
+                    break;
+                case "2":
+                    printSampleData(employeeArrayList, employeeBST);
+                    break;
+                case "0":
+                    break;
+                default:
+                    choice = menuItems();
+            }
+        }
+        while (!choice.equals("0"));
+    }
+
+    private static void searchData(EmployeeBinaryTree employeeBST) {
+        System.out.println("\nEnter a last name to search: ");
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+
+        System.out.println("\nSearching for: " + name);
+        List<Employee> resultingEmployees = employeeBST.findEmployeesByLastName(name);
+        for (Employee employee : resultingEmployees) {
+            System.out.println("Found: " + employee.employeeToString());
+        }
+    }
+
+    private static void printSampleData(ArrayList<Employee> employeeArrayList, EmployeeBinaryTree employeeBST) {
         for (int i = 0; i < 2; i++) {
-            System.out.println("Searching for: " + employeeArrayList.get(i).getLastName());
+            System.out.println("\nSearching for: " + employeeArrayList.get(i).getLastName());
             List<Employee> resultingEmployees = employeeBST.findEmployeesByLastName(employeeArrayList.get(i).getLastName());
             for (Employee employee : resultingEmployees) {
                 System.out.println("Found: " + employee.employeeToString());
             }
         }
-        System.out.println("Searching for: a");
-        List<Employee> resultingEmployees = employeeBST.findEmployeesByLastName("a");
-        System.out.println("Found: ");
-        if empty list
-                print no employees found
-        for (Employee employee : resultingEmployees) {
-            System.out.println(employee.employeeToString());
-        }
+    }
 
+    private static String menuItems() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\nPlease select one of the below options"
+                + "\n(1) Search employee"
+                + "\n(2) Sample employee data"
+                + "\n(0) Quit");
+        System.out.print("Choice: ");
+        return input.nextLine();
+    }
+
+    private static EmployeeBinaryTree populateTree(ArrayList<Employee> employeeArrayList) {
+        System.out.println("Populating binary tree...");
+        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
+        employeeBST.populateTree(employeeArrayList);
+        System.out.println("Populating Complete");
+        return employeeBST;
+    }
+
+    private static String[] loadEmployees() {
+        System.out.println("Loading 1000 employees from the csv file...");
+        String[] employeeArray = EmployeeFormatter.getNumEmployees(1000);
+        System.out.println("Loading Complete");
+        return employeeArray;
     }
 }
