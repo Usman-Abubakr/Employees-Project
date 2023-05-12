@@ -14,6 +14,7 @@ public class App {
 
         EmployeeBinaryTree employeeBST = populateTree(employeeArrayList);
 
+//        employeeBST.addElement(employeeArrayList.get(0));
 
         String choice;
         do {
