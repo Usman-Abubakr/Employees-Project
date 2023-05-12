@@ -1,5 +1,6 @@
 package com.sparta.rbf.employees_project.binary_tree;
 
+import com.sparta.rbf.employees_project.EmployeeFormatter;
 import com.sparta.rbf.employees_project.employee.Employee;
 import com.sparta.rbf.employees_project.employee.Gender;
 import com.sparta.rbf.employees_project.employee.NamePrefix;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmployeeBinaryTreeTests {
 
@@ -68,6 +71,61 @@ public class EmployeeBinaryTreeTests {
     void checkForRightChildReturn() {
         node1.setRightChild(node2);
         Assertions.assertEquals(node2, node1.getRightChild());
+    }
+
+    @Test
+    @DisplayName("Populate tree")
+    void checkTreePopulated() {
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
+        employeeBST.populateTree(employeeArrayList);
+        Assertions.assertEquals(employee1, employeeBST.getRoot().getEmployee());
+    }
+
+    @Test
+    @DisplayName("Look up last name in tree")
+    void checkTreeLookup() {
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
+        employeeBST.populateTree(employeeArrayList);
+
+        List<Employee> resultingEmployees1 = employeeBST.findEmployeesByLastName(employee1.getLastName());
+        for (Employee employee : resultingEmployees1) {
+            Assertions.assertEquals(employee.getLastName(), employee1.getLastName());
+        }
+
+        List<Employee> resultingEmployees2 = employeeBST.findEmployeesByLastName(employee2.getLastName());
+        for (Employee employee : resultingEmployees2) {
+            Assertions.assertEquals(employee.getLastName(), employee2.getLastName());
+        }
+    }
+
+    @Test
+    @DisplayName("Look up last name in tree with duplicates")
+    void checkTreeLookupWithDuplicates() {
+        ArrayList<Employee> employeeArrayList = new ArrayList<>();
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        employeeArrayList.add(employee1);
+        employeeArrayList.add(employee2);
+        EmployeeBinaryTree employeeBST = new EmployeeBinaryTree();
+        employeeBST.populateTree(employeeArrayList);
+
+        List<Employee> resultingEmployees1 = employeeBST.findEmployeesByLastName(employee1.getLastName());
+        for (Employee employee : resultingEmployees1) {
+            Assertions.assertEquals(employee.getLastName(), employee1.getLastName());
+        }
+
+        List<Employee> resultingEmployees2 = employeeBST.findEmployeesByLastName(employee2.getLastName());
+        for (Employee employee : resultingEmployees2) {
+            Assertions.assertEquals(employee.getLastName(), employee2.getLastName());
+        }
     }
 
 }

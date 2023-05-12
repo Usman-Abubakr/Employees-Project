@@ -27,8 +27,6 @@ public class App {
         System.out.println("Searching for: a");
         List<Employee> resultingEmployees = employeeBST.findEmployeesByLastName("a");
         System.out.println("Found: ");
-        if empty list
-                print no employees found
         for (Employee employee : resultingEmployees) {
             System.out.println(employee.employeeToString());
         }
