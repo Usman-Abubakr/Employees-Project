@@ -91,11 +91,11 @@ public class EmployeeBinaryTree {
 
     public List<Employee> findEmployeesByLastName(String lastName) {
         List<Employee> employees = new ArrayList<>();
-        findEmployeesByLastName(root, lastName, employees, false);
+        findEmployeesByLastName(root, lastName, employees);
         return employees;
     }
 
-    private void findEmployeesByLastName(Node node, String lastName, List<Employee> result, boolean found) {
+    private void findEmployeesByLastName(Node node, String lastName, List<Employee> result) {
         if (node == null) {
             return;
         }
@@ -103,12 +103,9 @@ public class EmployeeBinaryTree {
         int comparison = lastName.compareTo(node.getEmployee().getLastName());
         if (comparison == 0) {
             result.add(node.getEmployee());
-            found = true;
-        } else if (found) {
-            return;
         }
 
-        findEmployeesByLastName(node.getLeftChild(), lastName, result, found);
-        findEmployeesByLastName(node.getRightChild(), lastName, result, found);
+        findEmployeesByLastName(node.getLeftChild(), lastName, result);
+        findEmployeesByLastName(node.getRightChild(), lastName, result);
     }
 }

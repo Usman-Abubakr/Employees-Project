@@ -2,6 +2,7 @@ package com.sparta.rbf.employees_project;
 import com.sparta.rbf.employees_project.binary_tree.*;
 import com.sparta.rbf.employees_project.employee.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +15,11 @@ public class App {
 
         EmployeeBinaryTree employeeBST = populateTree(employeeArrayList);
 
-//        employeeBST.addElement(employeeArrayList.get(0));
+        // add employee with the same last name as first employee for duplication demonstration
+        Employee employee1 = new Employee(123456, NamePrefix.Mr, "John", 'P', employeeArrayList.get(0).getLastName(),
+                Gender.MALE, "randomemail@gmail.com", LocalDate.of(1979,10,25),
+                LocalDate.of(2021, 5,10), 44000);
+        employeeBST.addElement(employee1);
 
         String choice;
         do {
