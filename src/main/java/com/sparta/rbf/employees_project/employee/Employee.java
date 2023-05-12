@@ -33,42 +33,37 @@ public class Employee {
         this.salary = salary;
     }
 
+    public String employeeToString() {
+        return "Lastname: " + this.getLastName() + ", Employee ID: " + this.getEmpID() + ", Name Prefix: " + this.getNamePrefix() + ", Firstname: " + this.getFirstName() + ", Middle Initial: " + this.getMiddleInitial() + ", Gender: " + this.getGender() + ", Email: " + this.getEmail() + ", Date of birth: " + this.getDateOfBirth() + ", Date of joining: " + this.getDateOfJoining() + ", Salary: " + this.getSalary();
+    }
+
     public int getEmpID() {
         return empID;
     }
-
     public NamePrefix getNamePrefix() {
         return namePrefix;
     }
-
     public String getFirstName() {
         return firstName;
     }
-
     public char getMiddleInitial() {
         return middleInitial;
     }
-
     public String getLastName() {
         return lastName;
     }
-
     public Gender getGender() {
         return gender;
     }
-
     public String getEmail() {
         return email;
     }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
-
     public LocalDate getDateOfJoining() {
         return dateOfJoining;
     }
-
     public int getSalary() {
         return salary;
     }

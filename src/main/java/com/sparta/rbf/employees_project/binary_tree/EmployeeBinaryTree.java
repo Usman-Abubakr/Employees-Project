@@ -3,11 +3,11 @@ package com.sparta.rbf.employees_project.binary_tree;
 import com.sparta.rbf.employees_project.employee.Employee;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class EmployeeBinaryTree {
     private Node root;
-
     public EmployeeBinaryTree() {
         this.root = null;
     }
@@ -15,6 +15,7 @@ public class EmployeeBinaryTree {
     public void addElement(Employee employee) {
         Node newNode = new Node(employee);
 
+        //change
         if (root == null) {
             root = newNode;
             return;
@@ -24,6 +25,7 @@ public class EmployeeBinaryTree {
         while (true) {
             int comparison = employee.getLastName().compareTo(currentNode.getEmployee().getLastName());
             if (comparison < 0) {
+                //change
                 if (currentNode.getLeftChild() == null) {
                     currentNode.setLeftChild(newNode);
                     return;
