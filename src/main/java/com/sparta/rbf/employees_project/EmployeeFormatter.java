@@ -55,20 +55,21 @@ public class EmployeeFormatter {
 
     public static NamePrefix strToNamePrefix(String namePrefixStr){
         return switch (namePrefixStr) {
-            case "Mr." -> NamePrefix.Mr;
-            case "Mrs." -> NamePrefix.Mrs;
-            case "Ms." -> NamePrefix.Ms;
-            case "Dr." -> NamePrefix.Dr;
-            case "Drs." -> NamePrefix.Drs;
-            case "Prof." -> NamePrefix.Prof;
-            case "Hon." -> NamePrefix.Hon;
-            default -> NamePrefix.Mx;
+            case "Mr." -> NamePrefix.MR;
+            case "Mrs." -> NamePrefix.MRS;
+            case "Ms." -> NamePrefix.MS;
+            case "Dr." -> NamePrefix.DR;
+            case "Drs." -> NamePrefix.DRS;
+            case "Prof." -> NamePrefix.PROF;
+            case "Hon." -> NamePrefix.HON;
+            default -> NamePrefix.MX;
         };
     }
 
 
 
     public static Employee convertStringToEmployee(String employeeString) {
+        // log here
         String[] employeeDetails=getDetailsStr(employeeString);
         int empID = Integer.parseInt(employeeDetails[0]);
         NamePrefix namePrefix = strToNamePrefix(employeeDetails[1]);
@@ -85,6 +86,7 @@ public class EmployeeFormatter {
 
     }
     public static ArrayList<Employee> convertArrayToList(String[] employeeArray) {
+        // log here
         ArrayList<Employee> employeeArrayList=new ArrayList<>();
         for(String employeeString:employeeArray){
             Employee newEmployee=convertStringToEmployee(employeeString);
