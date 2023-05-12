@@ -1,5 +1,8 @@
-package com.sparta.rbf.employees_project;
+package com.sparta.rbf.employees_project.employee;
 
+
+import com.sparta.rbf.employees_project.employee.Gender;
+import com.sparta.rbf.employees_project.employee.NamePrefix;
 
 import java.time.LocalDate;
 

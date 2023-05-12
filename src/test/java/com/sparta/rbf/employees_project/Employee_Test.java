@@ -1,5 +1,8 @@
 package com.sparta.rbf.employees_project;
 
+import com.sparta.rbf.employees_project.employee.Employee;
+import com.sparta.rbf.employees_project.employee.Gender;
+import com.sparta.rbf.employees_project.employee.NamePrefix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
