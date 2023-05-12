@@ -2,18 +2,30 @@ package com.sparta.rbf.employees_project;
 
 public class Node {
     private Employee employee;
-    private Node leftChild;
-    private Node rightChild;
+    private Node leftChild = null;
+    private Node rightChild = null;
 
     public Node(Employee employee) {
-        // TO-DO
+        this.employee = employee;
     }
-    public boolean isLeftChildEmpty() {
-        // TO-DO
-        return false;
+
+    public Employee getEmployee() {
+        return this.employee;
     }
-    public boolean isRightChildEmpty() {
-        // TO-DO
-        return false;
+
+    public Node getLeftChild() {
+        return this.leftChild;
+    }
+
+    public Node getRightChild() {
+        return this.rightChild;
+    }
+
+    public void setLeftChild(Node node) {
+        this.leftChild = node;
+    }
+
+    public void setRightChild(Node node) {
+        this.rightChild = node;
     }
 }
