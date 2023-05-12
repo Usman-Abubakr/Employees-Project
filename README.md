@@ -21,10 +21,6 @@
 - Allow the user to search for a specific employee by ```last_name```
 
 
-Test - Chamara
-Test - Usman
-
-
 ## Setting up development project
 
 1. Clone from remote to local: `git clone https://github.com/Usman-Abubakr/Employees-Project.git`
