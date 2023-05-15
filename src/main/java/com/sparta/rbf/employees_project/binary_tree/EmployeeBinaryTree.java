@@ -5,8 +5,11 @@ import com.sparta.rbf.employees_project.employee.Employee;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EmployeeBinaryTree {
+    public static final Logger logger = Logger.getLogger(EmployeeBinaryTree.class.getName());
     public static class Node {
         private Employee employee;
         private Node leftChild = null;
@@ -84,12 +87,15 @@ public class EmployeeBinaryTree {
     }
 
     public void populateTree(ArrayList<Employee> employees) {
+        logger.log(Level.FINE,  "Entered for loop to populate tree.");
         for (Employee employee : employees) {
             addElement(employee);
+            logger.log(Level.FINER, "Added employee element: " + employee.toString());
         }
     }
 
     public List<Employee> findEmployeesByLastName(String lastName) {
+        logger.log(Level.INFO, "Attempting to find employees with surname: " + lastName);
         List<Employee> employees = new ArrayList<>();
         findEmployeesByLastName(root, lastName, employees);
         return employees;

@@ -33,7 +33,8 @@ public class Employee {
         this.salary = salary;
     }
 
-    public String employeeToString() {
+    @Override
+    public String toString() {
         return "Lastname: " + this.getLastName() + ", Employee ID: " + this.getEmpID() + ", Name Prefix: " + this.getNamePrefix() + ", Firstname: " + this.getFirstName() + ", Middle Initial: " + this.getMiddleInitial() + ", Gender: " + this.getGender() + ", Email: " + this.getEmail() + ", Date of birth: " + this.getDateOfBirth() + ", Date of joining: " + this.getDateOfJoining() + ", Salary: " + this.getSalary();
     }
 

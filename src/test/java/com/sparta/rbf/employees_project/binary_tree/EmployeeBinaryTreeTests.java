@@ -14,11 +14,11 @@ import java.util.List;
 
 public class EmployeeBinaryTreeTests {
 
-    Employee employee1 = new Employee(123456, NamePrefix.Mr, "John", 'P', "Smith",
+    Employee employee1 = new Employee(123456, NamePrefix.MR, "John", 'P', "Smith",
             Gender.MALE, "johnsmith@gmail.com", LocalDate.of(1979,10,25),
             LocalDate.of(2021, 5,10), 44000);
 
-    Employee employee2 = new Employee(987546, NamePrefix.Mrs, "Emma", 'C', "Wood",
+    Employee employee2 = new Employee(987546, NamePrefix.MRS, "Emma", 'C', "Wood",
             Gender.FEMALE, "emmacwood@gmail.com", LocalDate.of(1999,8,22),
             LocalDate.of(2022,3,21), 30000);
 

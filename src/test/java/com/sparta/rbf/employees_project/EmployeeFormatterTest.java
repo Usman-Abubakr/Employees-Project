@@ -52,20 +52,33 @@ public class EmployeeFormatterTest {
     }
 
     @Test
+    @DisplayName("Check that an Employee's gender defaults to OTHER if none is specified")
+    void checkUnspecifiedGender() {
+        Assertions.assertEquals(Gender.OTHER, EmployeeFormatter.strToGender(""));
+    }
+
+    @Test
     @DisplayName("Test if the correct name prefix is returned")
     void checkNamePrefix(){
         Assertions.assertAll(
-                ()->Assertions.assertEquals(NamePrefix.Mr,EmployeeFormatter.strToNamePrefix("Mr.")),
-                ()->Assertions.assertEquals(NamePrefix.Mrs,EmployeeFormatter.strToNamePrefix("Mrs.")),
-                ()->Assertions.assertEquals(NamePrefix.Ms,EmployeeFormatter.strToNamePrefix("Ms.")),
-                ()->Assertions.assertEquals(NamePrefix.Dr,EmployeeFormatter.strToNamePrefix("Dr.")),
-                ()->Assertions.assertEquals(NamePrefix.Drs,EmployeeFormatter.strToNamePrefix("Drs.")),
-                ()->Assertions.assertEquals(NamePrefix.Prof,EmployeeFormatter.strToNamePrefix("Prof.")),
-                ()->Assertions.assertEquals(NamePrefix.Hon,EmployeeFormatter.strToNamePrefix("Hon."))
+                ()->Assertions.assertEquals(NamePrefix.MR,EmployeeFormatter.strToNamePrefix("Mr.")),
+                ()->Assertions.assertEquals(NamePrefix.MRS,EmployeeFormatter.strToNamePrefix("Mrs.")),
+                ()->Assertions.assertEquals(NamePrefix.MS,EmployeeFormatter.strToNamePrefix("Ms.")),
+                ()->Assertions.assertEquals(NamePrefix.DR,EmployeeFormatter.strToNamePrefix("Dr.")),
+                ()->Assertions.assertEquals(NamePrefix.DRS,EmployeeFormatter.strToNamePrefix("Drs.")),
+                ()->Assertions.assertEquals(NamePrefix.PROF,EmployeeFormatter.strToNamePrefix("Prof.")),
+                ()->Assertions.assertEquals(NamePrefix.HON,EmployeeFormatter.strToNamePrefix("Hon."))
                 );
     }
 
-    Employee employee1 = new Employee(123456, NamePrefix.Mr, "John", 'P', "Smith",
+
+    @Test
+    @DisplayName("Check that an Employee's name prefix defaults to MX if none is specified")
+    void checkUnspecifiedNamePrefix() {
+        Assertions.assertEquals(NamePrefix.MX,EmployeeFormatter.strToNamePrefix(""));
+    }
+
+    Employee employee1 = new Employee(123456, NamePrefix.MR, "John", 'P', "Smith",
             Gender.MALE, "johnsmith@gmail.com", LocalDate.of(1979,10,25),
             LocalDate.of(2021, 5,10), 44000);
     String employee1Str = "123456,Mr.,John,P,Smith,M,johnsmith@gmail.com,10/25/1979,5/10/2021,44000";
@@ -104,8 +117,6 @@ public class EmployeeFormatterTest {
         employeeArrayList.add(employee1);
         Assertions.assertEquals(employeeArrayList.getClass(),EmployeeFormatter.convertArrayToList(employeeArray).getClass());
     }
-
-
 
 
 
