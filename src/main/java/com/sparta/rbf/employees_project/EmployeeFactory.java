@@ -15,6 +15,7 @@ public class EmployeeFactory {
         List<String> result = new ArrayList<>();
         BufferedReader f = new BufferedReader(new FileReader("src/main/resources/employees.csv"));
         // read all the records from the file and add them to the list
+        f.readLine();
         while ((employeeLine = f.readLine()) != null)
             result.add(employeeLine);
         // randomise

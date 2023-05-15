@@ -5,15 +5,16 @@ import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
 
 public class FileHandlerConfig {
+    private static FileHandler fileHandler;
     public static FileHandler getFileHandler() {
-        FileHandler fileHandler = null;
-
-        try {
-            fileHandler = new FileHandler("src/main/logs/logFile.log", false);
-            fileHandler.setLevel(Level.ALL);
-            fileHandler.setFormatter(new SimpleFormatter());
-        } catch (Exception e) {
-            e.printStackTrace();
+        if(fileHandler == null) {
+            try {
+                fileHandler = new FileHandler("src/main/logs/logFile.log", false);
+                fileHandler.setLevel(Level.ALL);
+                fileHandler.setFormatter(new SimpleFormatter());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return fileHandler;
     }

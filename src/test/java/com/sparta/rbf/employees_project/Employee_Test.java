@@ -1,5 +1,8 @@
 package com.sparta.rbf.employees_project;
 
+import com.sparta.rbf.employees_project.employee.Employee;
+import com.sparta.rbf.employees_project.employee.Gender;
+import com.sparta.rbf.employees_project.employee.NamePrefix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,5 +29,23 @@ public class Employee_Test {
     void checkEmployeesNotEqual() {
         Assertions.assertNotEquals(employee1, employee2);
     }
+
+    @Test
+    @DisplayName("Check that retrieving an Employee's details return the correct values")
+    void checkForDetails() {
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(123456, employee1.getEmpID()),
+                () -> Assertions.assertEquals(NamePrefix.MR, employee1.getNamePrefix()),
+                () -> Assertions.assertEquals("John", employee1.getFirstName()),
+                () -> Assertions.assertEquals('P', employee1.getMiddleInitial()),
+                () -> Assertions.assertEquals("Smith", employee1.getLastName()),
+                () -> Assertions.assertEquals(Gender.MALE, employee1.getGender()),
+                () -> Assertions.assertEquals("johnsmith@gmail.com", employee1.getEmail()),
+                () -> Assertions.assertEquals(LocalDate.of(1979,10,25), employee1.getDateOfBirth()),
+                () -> Assertions.assertEquals(LocalDate.of(2021, 5,10), employee1.getDateOfJoining()),
+                () -> Assertions.assertEquals(44000, employee1.getSalary())
+        );
+    }
+
 
 }

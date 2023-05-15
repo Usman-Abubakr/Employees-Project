@@ -1,28 +1,27 @@
 package com.sparta.rbf.employees_project.logging;
 
 import com.sparta.rbf.employees_project.App;
-import com.sparta.rbf.employees_project.BinarySearchTree;
+import com.sparta.rbf.employees_project.binary_tree.EmployeeBinaryTree;
 import com.sparta.rbf.employees_project.EmployeeFormatter;
 
+import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 public class LogSetup {
-    public static final LogManager logManager = LogManager.getLogManager();
-
     public static void setup() {
+        App.logger.setUseParentHandlers(false);
+        EmployeeFormatter.logger.setUseParentHandlers(false);
+        EmployeeBinaryTree.logger.setUseParentHandlers(false);
 
-        logManager.addLogger(Logger.getLogger(App.class.getName()));
-        logManager.addLogger(Logger.getLogger(EmployeeFormatter.class.getName()));
-        logManager.addLogger(Logger.getLogger(BinarySearchTree.class.getName()));
+        App.logger.addHandler(FileHandlerConfig.getFileHandler());
+        EmployeeFormatter.logger.addHandler(FileHandlerConfig.getFileHandler());
+        EmployeeBinaryTree.logger.addHandler(FileHandlerConfig.getFileHandler());
 
-        Logger appClassLogger = logManager.getLogger(App.class.getName());
-        Logger employeeFormatterClassLogger = logManager.getLogger(EmployeeFormatter.class.getName());
-        Logger binarySearchTreeClassLogger = logManager.getLogger(BinarySearchTree.class.getName());
+        App.logger.setLevel(Level.INFO);
+        EmployeeFormatter.logger.setLevel(Level.FINER);
+        EmployeeBinaryTree.logger.setLevel(Level.FINER);
 
-        appClassLogger.addHandler(FileHandlerConfig.getFileHandler());
-        employeeFormatterClassLogger.addHandler(FileHandlerConfig.getFileHandler());
-        binarySearchTreeClassLogger.addHandler(FileHandlerConfig.getFileHandler());
 
     }
 }
