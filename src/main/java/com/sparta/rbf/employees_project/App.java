@@ -15,6 +15,7 @@ public class App {
     public static final Logger logger = Logger.getLogger(App.class.getName());
 
     public static void main(String[] args) {
+        /*
         LogSetup.setup();
         Logger logger = LogManager.getLogManager().getLogger(App.class.getName());
 
@@ -50,6 +51,8 @@ public class App {
             }
         }
         while (!choice.equals("0"));
+        */
+
     }
 
     private static void searchData(EmployeeBinaryTree employeeBST) {
