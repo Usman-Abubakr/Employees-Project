@@ -35,6 +35,14 @@
 
 ## Project 1
 
+
+### About
+
+Developed by team Rootbeer Float, shortened to RBF.
+
+The application loads employee data from a CVS file to creates a binary tree that allows the user to search for employee's in a time efficient manner.
+
+
 ### Requirements
 
 - *Add the provided factory class, ```EmployeeFactory.java```, to a suitable package within your project*
@@ -56,7 +64,16 @@
 - Allow the user to search for a specific employee by ```last_name```
 
 
+
+
 ## Project 2
+
+### About
+
+Developed by the SQuirreLs, also known as The SQL Squirrels.
+
+The application loads employee data from a variety of source files and inserts them into a MySQL database.
+
 
 ### Requirements
 
