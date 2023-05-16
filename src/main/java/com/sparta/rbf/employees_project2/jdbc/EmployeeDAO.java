@@ -47,6 +47,7 @@ public class EmployeeDAO {
             preparedStatement.setString(4, lastName);
             preparedStatement.setString(5, gender);
             preparedStatement.setDate(6, hireDate);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
