@@ -19,18 +19,23 @@ public class EmployeeDAO {
         }
     }
 
-    public void getAllUsers() {
+    public ResultSet getAllUsers() {
         try {
             ResultSet resultSet = statement.executeQuery(SQLQueries.SELECT_ALL);
             while (resultSet.next()) {
                 System.out.print(
                         resultSet.getInt(1) + " " +
-                                resultSet.getString(2) + " " +
-                                resultSet.getString(3) + "\n");
+                        resultSet.getString(2) + " " +
+                        resultSet.getString(3) + " " +
+                        resultSet.getString(4) + " " +
+                        resultSet.getString(5) + " " +
+                        resultSet.getString(6) + "\n");
             }
+            return resultSet;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public void createEmployee(int empNo, Date birthDate, String firstName, String lastName, String gender, Date hireDate) {
