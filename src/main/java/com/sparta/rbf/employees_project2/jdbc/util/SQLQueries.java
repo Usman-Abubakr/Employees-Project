@@ -1,4 +1,4 @@
-package com.sparta.rbf.employees_project2.jdbc;
+package com.sparta.rbf.employees_project2.jdbc.util;
 
 public interface SQLQueries {
     String SELECT_ALL = "SELECT * from employees.employees";

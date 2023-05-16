@@ -1,5 +1,7 @@
 package com.sparta.rbf.employees_project2.jdbc;
 
+import com.sparta.rbf.employees_project2.jdbc.util.SQLQueries;
+
 import java.sql.*;
 
 //Create
@@ -19,18 +21,9 @@ public class EmployeeDAO {
         }
     }
 
-    public ResultSet getAllUsers() {
+    public ResultSet getAllEmployees() {
         try {
             ResultSet resultSet = statement.executeQuery(SQLQueries.SELECT_ALL);
-            while (resultSet.next()) {
-                System.out.print(
-                        resultSet.getInt(1) + " " +
-                        resultSet.getString(2) + " " +
-                        resultSet.getString(3) + " " +
-                        resultSet.getString(4) + " " +
-                        resultSet.getString(5) + " " +
-                        resultSet.getString(6) + "\n");
-            }
             return resultSet;
         } catch (SQLException e) {
             e.printStackTrace();
