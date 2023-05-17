@@ -37,6 +37,10 @@ public class EmployeeDAO {
             preparedStatement.setString(1, department);
             preparedStatement.setString(2, dateFrom);
             preparedStatement.setString(3, dateTo);
+            preparedStatement.setString(4, dateFrom);
+            preparedStatement.setString(5, dateTo);
+            preparedStatement.setString(6, dateFrom);
+            preparedStatement.setString(7, dateTo);
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet;
         } catch (SQLException e) {
