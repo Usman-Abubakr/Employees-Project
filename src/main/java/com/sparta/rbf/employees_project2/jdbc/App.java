@@ -14,8 +14,8 @@ public class App {
         EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
         
         ResultSet employees = employeeDAO.getAllEmployees();
-        ArrayList<Employee> employeeArrayList = EmployeeFormatter.resultSetToArrayList(employees);
-        for(Employee emp: employeeArrayList){
+        EmployeeFormatter.populateEmployeeRepository(employees);
+        for(Employee emp: EmployeeRepository.employees){
             System.out.println(emp.toString());
         }
         ConnectionManager.closeConnection();

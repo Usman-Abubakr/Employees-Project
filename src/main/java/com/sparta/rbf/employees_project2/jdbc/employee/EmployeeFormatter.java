@@ -1,6 +1,8 @@
 package com.sparta.rbf.employees_project2.jdbc.employee;
 
 
+import com.sparta.rbf.employees_project2.jdbc.EmployeeRepository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -45,10 +47,8 @@ public class EmployeeFormatter {
 
 
 
-    public static ArrayList<Employee> resultSetToArrayList(ResultSet resultSet) {
+    public static void populateEmployeeRepository(ResultSet resultSet) {
         logger.log(Level.CONFIG, "Converting resultSet to Employee object.");
-        ArrayList<Employee> employees = new ArrayList<>();
-
         try {
             while (resultSet.next()) {
                 int empNo=resultSet.getInt(1);
@@ -58,12 +58,11 @@ public class EmployeeFormatter {
                 Gender gender = strToGender(resultSet.getString(5));
                 LocalDate hireDate = strToLocalDate(resultSet.getString(6));
                 Employee employee = new Employee(empNo,firstName,lastName,gender,birthDate,hireDate);
-                employees.add(employee);//possible use of employeecollection class
+                EmployeeRepository.addEmployee(employee);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
     }
 
 }
