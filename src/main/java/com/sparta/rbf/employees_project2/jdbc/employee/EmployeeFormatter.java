@@ -1,6 +1,8 @@
 package com.sparta.rbf.employees_project2.jdbc.employee;
 
 
+import com.sparta.rbf.employees_project2.jdbc.EmployeeRepository;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,7 +15,7 @@ import java.util.logging.Logger;
 public class EmployeeFormatter {
     public static final Logger logger = Logger.getLogger(EmployeeFormatter.class.getName());
     public static LocalDate strToLocalDate(String dateStr){
-        logger.log(Level.FINE, "Converting date String: " + dateStr + " to LocalDate format.");
+        //logger.log(Level.FINE, "Converting date String: " + dateStr + " to LocalDate format.");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d");
         LocalDate localDate;
         try {
@@ -31,7 +33,7 @@ public class EmployeeFormatter {
     }
 
     public static Gender strToGender(String genderStr) {
-        logger.log(Level.FINE,"Converting gender String " + genderStr + " to Gender type format.");
+        //logger.log(Level.FINE,"Converting gender String " + genderStr + " to Gender type format.");
         if (genderStr.equals("M")||genderStr.equals("m")) {
             return Gender.MALE;
         } else if (genderStr.equals("F")||genderStr.equals("f")) {
@@ -45,10 +47,8 @@ public class EmployeeFormatter {
 
 
 
-    public static ArrayList<Employee> resultSetToArrayList(ResultSet resultSet) {
+    public static void populateEmployeeRepository(ResultSet resultSet) {
         logger.log(Level.CONFIG, "Converting resultSet to Employee object.");
-        ArrayList<Employee> employees = new ArrayList<>();
-
         try {
             while (resultSet.next()) {
                 int empNo=resultSet.getInt(1);
@@ -58,12 +58,11 @@ public class EmployeeFormatter {
                 Gender gender = strToGender(resultSet.getString(5));
                 LocalDate hireDate = strToLocalDate(resultSet.getString(6));
                 Employee employee = new Employee(empNo,firstName,lastName,gender,birthDate,hireDate);
-                employees.add(employee);//possible use of employeecollection class
+                EmployeeRepository.addEmployee(employee);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return employees;
     }
 
 }
