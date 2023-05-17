@@ -1,6 +1,5 @@
 package com.sparta.rbf.employees_project2.jdbc.employee;
 
-
 import com.sparta.rbf.employees_project2.jdbc.EmployeeRepository;
 
 import java.sql.ResultSet;
@@ -8,7 +7,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,7 +25,7 @@ public class EmployeeFormatter {
             for (int i = 0; i < dateStrSplit.length; i++) {
                 dateInt[i] = Integer.parseInt(dateStrSplit[i]);
             }
-            localDate = LocalDate.of(dateInt[2], dateInt[0], dateInt[1]);//yyyy/M/d
+            localDate = LocalDate.of(dateInt[2], dateInt[0], dateInt[1]);//yyyy-M-d
         }
         return localDate;
     }
@@ -42,10 +40,6 @@ public class EmployeeFormatter {
         logger.log(Level.FINER,"Invalid/Unspecified gender. Defaulted to other.");
         return Gender.OTHER;//will throw an exception and a method to handle invalid entries
     }
-
-
-
-
 
     public static void populateEmployeeRepository(ResultSet resultSet) {
         logger.log(Level.CONFIG, "Converting resultSet to Employee object.");
