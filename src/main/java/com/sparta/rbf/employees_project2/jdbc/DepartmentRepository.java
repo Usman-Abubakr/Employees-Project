@@ -13,6 +13,9 @@ public class DepartmentRepository {
     private DepartmentRepository() {
     }
 
+    public static void addDepartment(Department department) {
+        departments.add(department);
+    }
 
     public static ArrayList<Department> getAllDepartments() {
         return departments;
