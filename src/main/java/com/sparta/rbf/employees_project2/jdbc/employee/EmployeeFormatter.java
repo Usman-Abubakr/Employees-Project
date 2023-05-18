@@ -33,14 +33,15 @@ public class EmployeeFormatter {
     }
 
     public static Gender strToGender(String genderStr) {
-        //logger.log(Level.FINE,"Converting gender String " + genderStr + " to Gender type format.");
+        logger.log(Level.FINE,"Converting gender String " + genderStr + " to Gender type format.");
+        Gender gender=Gender.F;
         if (genderStr.equals("M")||genderStr.equals("m")) {
-            return Gender.MALE;
+            gender= Gender.M;
         } else if (genderStr.equals("F")||genderStr.equals("f")) {
-            return Gender.FEMALE;
+             gender=Gender.F;
         }
         logger.log(Level.FINER,"Invalid/Unspecified gender. Defaulted to other.");
-        return Gender.OTHER;//will throw an exception and a method to handle invalid entries
+        return gender;//will throw an exception and a method to handle invalid entries
     }
   
     public static void populateEmployeeRepository(ResultSet resultSet) {
