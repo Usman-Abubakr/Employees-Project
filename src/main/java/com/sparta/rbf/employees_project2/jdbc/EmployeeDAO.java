@@ -71,4 +71,16 @@ public class EmployeeDAO {
             e.printStackTrace();
         }
     }
+
+    public ResultSet getDepartmentNames() {
+        try {
+            ResultSet resultSet = statement.executeQuery(SQLQueries.SELECT_ALL_DEPARTMENTS);
+            logger.log(Level.INFO, "Retrieved all departments from database.");
+            return resultSet;
+        } catch (SQLException e) {
+            logger.log(Level.WARNING, "Failed to retrieve departments from database.");
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

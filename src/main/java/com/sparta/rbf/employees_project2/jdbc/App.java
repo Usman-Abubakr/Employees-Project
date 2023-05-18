@@ -2,9 +2,16 @@ package com.sparta.rbf.employees_project2.jdbc;
 
 import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 import com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter;
+import com.sparta.rbf.employees_project2.jdbc.employee.Gender;
+import com.sparta.rbf.employees_project2.jdbc.jackson.Employees;
+import com.sparta.rbf.employees_project2.jdbc.jackson.FileWriterFactory;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
+import com.sparta.rbf.employees_project2.jdbc.util.SQLQueries;
 
+import java.io.FileNotFoundException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,18 +79,29 @@ public class App {
     private static void LoadEmployees() {
         EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
         ResultSet employees = employeeDAO.getAllEmployees();
-        ConnectionManager.closeConnection();
 
         EmployeeFormatter.populateEmployeeRepository(employees);
         for(Employee emp: EmployeeRepository.employees){
             System.out.println(emp.toString());
         }
+        ConnectionManager.closeConnection();
     }
 
     private static void getEmployeeData(String startDate, String endDate, String departmentId) {
         System.out.println("\nLooking for employees in " + departmentId + " department, from " + startDate + " to " + endDate);
 
+        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
+        ResultSet employeesResultSet = employeeDAO.getAllEmployeesInDepartmentWithinDates(departmentId, startDate, endDate);
 
+        ArrayList<Employee> arrayList = EmployeeFormatter.resultSetToArrayList(employeesResultSet);
+        Employees employees = new Employees(arrayList);
+        try {
+            FileWriterFactory.createFile(employees);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File input incorrect");
+        }
+        ConnectionManager.closeConnection();
     }
 
     private static String getDate(String startOrEndDate) {
@@ -183,20 +201,22 @@ public class App {
     private static String getDepartmentMenuItems() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("\nEnter a department number:"
-                + "\n(1) Marketing"
-                + "\n(2) Finance"
-                + "\n(3) Human Resources"
-                + "\n(4) Production"
-                + "\n(5) Development"
-                + "\n(6) Quality Management"
-                + "\n(7) Sales"
-                + "\n(8) Research"
-                + "\n(9) Customer Service"
-                + "\n------------------------"
+        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
+        ResultSet departmentResultSet = employeeDAO.getDepartmentNames();
+
+        try {
+            int i = 1;
+            while (departmentResultSet.next()) {
+                String departmentNames = departmentResultSet.getString(2);
+                System.out.println("(" + i + ") " + departmentNames);
+                i++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        System.out.print("------------------------"
                 + "\n(0) Return to main menu"
-                + "\n");
-        System.out.print("Choice: ");
+                +"\n\nChoice: ");
         return input.nextLine();
     }
 }
