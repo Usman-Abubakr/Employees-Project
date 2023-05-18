@@ -1,8 +1,8 @@
 package com.sparta.rbf.employees_project2.jdbc;
 
 public class Department {
-    String departmentId;
-    String departmentName;
+    private String departmentId;
+    private String departmentName;
 
     public Department(String departmentId, String departmentName) {
         this.departmentId = departmentId;
