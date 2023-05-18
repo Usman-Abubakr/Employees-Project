@@ -52,29 +52,22 @@ public class App {
     }
 
     private static void employeeDepartmentMenuLoop() {
-        String departmentChoice;
+        int departmentChoice;
         do {
             departmentChoice = getDepartmentMenuItems();
-            System.out.println("\nDepartment chosen: " + convertChoiceToDepartmentName(departmentChoice));
+            System.out.println("\nDepartment chosen: " + convertNumberToDepartmentName(departmentChoice) + "\n");
 
-            if (departmentChoice.equals("1")
-                    || departmentChoice.equals("2")
-                    || departmentChoice.equals("3")
-                    || departmentChoice.equals("4")
-                    || departmentChoice.equals("5")
-                    || departmentChoice.equals("6")
-                    || departmentChoice.equals("7")
-                    || departmentChoice.equals("8")
-                    || departmentChoice.equals("9")) {
+            //Check if department id exists
+            if (!convertNumberToDepartmentName(departmentChoice).equals("Department not found.")) {
                 String startDate = getDate("start");
                 String endDate = getDate("end");
 
                 if (isStartDateBeforeEndDate(startDate, endDate)) {
-                    getEmployeeData(startDate, endDate, convertChoiceToDepartmentId(departmentChoice));
+                    getEmployeeData(startDate, endDate, convertNumberToDepartmentId(departmentChoice));
                 }
             }
         }
-        while (!departmentChoice.equals("0"));
+        while (departmentChoice != 0);
     }
 
     private static void LoadEmployees() {
@@ -207,7 +200,7 @@ public class App {
         return input.nextLine();
     }
 
-    private static String getDepartmentMenuItems() {
+    private static int getDepartmentMenuItems() {
         Scanner input = new Scanner(System.in);
 
         for(Department dept: DepartmentRepository.departments){
@@ -217,10 +210,23 @@ public class App {
         System.out.print("------------------------"
                 + "\n(0) Return to main menu"
                 +"\n\nChoice: ");
-        return input.nextLine();
+        return input.nextInt();
     }
 
-    private static String convertDepartmentIdToNumbers(String departmentId) {
-        return departmentId.replaceFirst("^\\D*(0*)", "");
+    private static int convertDepartmentIdToNumbers(String departmentId) {
+        return Integer.parseInt(departmentId.replaceFirst("^\\D*(0*)", ""));
+    }
+
+    private static String convertNumberToDepartmentId(int number) {
+        return String.format("d%03d", number);
+    }
+
+    private static String convertNumberToDepartmentName(int number) {
+        for(Department dept: DepartmentRepository.departments){
+            if (dept.getDepartmentId().equals(convertNumberToDepartmentId(number))) {
+                return dept.getDepartmentName();
+            }
+        }
+        return "Department not found.";
     }
 }
