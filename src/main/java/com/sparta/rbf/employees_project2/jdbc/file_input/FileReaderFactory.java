@@ -1,23 +1,33 @@
 package com.sparta.rbf.employees_project2.jdbc.file_input;
 
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileFactory.*;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileValidation.*;
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FilenameValidation.*;
 
 public class FileReaderFactory {
-    public void readFile(String filename){
+    public static final Logger logger = Logger.getLogger(FileReaderFactory.class.getName());
+
+    public void readFile(String filename) throws FileNotFoundException{
         String fileName = getFileName();
         String fileExtension = getFileExtension(fileName).toLowerCase();
         if (isFileNameValid(fileName)&&isFileExtensionValid(fileExtension)) {
             getFileReader(filename, fileExtension);
-//            getMapper(fileExtension, fileName, employees);
         } else {
-            System.out.println("File name is invalid");
+            throw new FileNotFoundException();
         }
     }
 
     public static void getFileReader(String filename, String fileExtension){
-
+        if(fileExtension.equals("csv")){
+            new ReadingCSV();
+        } else if (fileExtension.equals("json")) {
+            new ReadingJSON();
+        } else if (fileExtension.equals("xml")) {
+            new ReadingXML();
+        }
     }
 
 }

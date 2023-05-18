@@ -1,6 +1,6 @@
 package com.sparta.rbf.employees_project2.jdbc.jackson;
 
-public class FileValidation {
+public class FilenameValidation {
     public static boolean isFileNameValid(String filename) {
         String regex_pattern = "^[A-za-z0-9.-]{1,255}$";
         boolean hasValidChars = filename.matches(regex_pattern);
