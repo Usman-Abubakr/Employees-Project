@@ -9,6 +9,10 @@ public class Employees {//wrapper class
     @JacksonXmlElementWrapper(useWrapping = false)
     ArrayList<Employee> employee;
 
+    public void setEmployee(ArrayList<Employee> employee) {
+        this.employee = employee;
+    }
+
     public Employees(ArrayList<Employee> employees) {
         this.employee = employees;
     }

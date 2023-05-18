@@ -41,7 +41,6 @@ public class EmployeeFormatter {
         } else if (genderStr.equals("F")||genderStr.equals("f")) {
              gender=Gender.F;
         }
-        logger.log(Level.FINER,"Invalid/Unspecified gender. Defaulted to other.");
         return gender;//will throw an exception and a method to handle invalid entries
     }
   
