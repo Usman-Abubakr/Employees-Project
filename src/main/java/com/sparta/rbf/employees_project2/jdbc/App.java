@@ -26,19 +26,14 @@ public class App {
         String choice;
         do {
             choice = getMainMenuItems();
-            switch(choice) {
-                case "1":
+            switch (choice) {
+                case "1" -> {
                     logger.log(Level.INFO, "User selected \"Search employee from department\".");
                     employeeDepartmentMenuLoop();
-                    break;
-                case "2":
-                    logger.log(Level.INFO, "User selected \"Import employees from file\".");
-                    break;
-                case "0":
-                    logger.log(Level.INFO, "User selected \"Quit\"");
-                    break;
-                default:
-                    choice = getMainMenuItems();
+                }
+                case "2" -> logger.log(Level.INFO, "User selected \"Import employees from file\".");
+                case "0" -> logger.log(Level.INFO, "User selected \"Quit\"");
+                default -> choice = getMainMenuItems();
             }
         }
         while (!choice.equals("0"));
@@ -74,49 +69,21 @@ public class App {
         while (!departmentChoice.equals("0"));
     }
 
-
     private static void LoadEmployees() {
         EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
-
         ResultSet employees = employeeDAO.getAllEmployees();
+        ConnectionManager.closeConnection();
+
         EmployeeFormatter.populateEmployeeRepository(employees);
         for(Employee emp: EmployeeRepository.employees){
             System.out.println(emp.toString());
         }
-        ConnectionManager.closeConnection();
     }
 
-    private static String getMainMenuItems() {
-        Scanner input = new Scanner(System.in);
+    private static void getEmployeeData(String startDate, String endDate, String departmentId) {
+        System.out.println("\nLooking for employees in " + departmentId + " department, from " + startDate + " to " + endDate);
 
-        System.out.println("\nPlease select one of the below options:"
-                + "\n(1) Get employees from a department within a specified time frame"
-                + "\n(2) Import employees from file"
-                + "\n-----------------------------------------------------------------"
-                + "\n(0) Quit"
-                + "\n");
-        System.out.print("Choice: ");
-        return input.nextLine();
-    }
 
-    private static String getDepartmentMenuItems() {
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("\nEnter a department number:"
-                + "\n(1) Marketing"
-                + "\n(2) Finance"
-                + "\n(3) Human Resources"
-                + "\n(4) Production"
-                + "\n(5) Development"
-                + "\n(6) Quality Management"
-                + "\n(7) Sales"
-                + "\n(8) Research"
-                + "\n(9) Customer Service"
-                + "\n------------------------"
-                + "\n(0) Return to main menu"
-                + "\n");
-        System.out.print("Choice: ");
-        return input.nextLine();
     }
 
     private static String getDate(String startOrEndDate) {
@@ -170,10 +137,6 @@ public class App {
         }
     }
 
-    private static void getEmployeeData(String startDate, String endDate, String departmentId) {
-        System.out.println("\nLooking for employees in " + departmentId + " department, from " + startDate + " to " + endDate);
-    }
-
     private static String convertChoiceToDepartmentName(String departmentChoice) {
         return switch (departmentChoice) {
             case "1" -> "Marketing";
@@ -202,5 +165,38 @@ public class App {
             case "9" -> "d009";
             default -> "Department not found";
         };
+    }
+
+    private static String getMainMenuItems() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\nPlease select one of the below options:"
+                + "\n(1) Get employees from a department within a specified time frame"
+                + "\n(2) Import employees from file"
+                + "\n-----------------------------------------------------------------"
+                + "\n(0) Quit"
+                + "\n");
+        System.out.print("Choice: ");
+        return input.nextLine();
+    }
+
+    private static String getDepartmentMenuItems() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("\nEnter a department number:"
+                + "\n(1) Marketing"
+                + "\n(2) Finance"
+                + "\n(3) Human Resources"
+                + "\n(4) Production"
+                + "\n(5) Development"
+                + "\n(6) Quality Management"
+                + "\n(7) Sales"
+                + "\n(8) Research"
+                + "\n(9) Customer Service"
+                + "\n------------------------"
+                + "\n(0) Return to main menu"
+                + "\n");
+        System.out.print("Choice: ");
+        return input.nextLine();
     }
 }
