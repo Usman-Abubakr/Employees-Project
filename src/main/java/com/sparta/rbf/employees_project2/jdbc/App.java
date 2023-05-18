@@ -6,10 +6,8 @@ import com.sparta.rbf.employees_project2.jdbc.employee.Gender;
 import com.sparta.rbf.employees_project2.jdbc.jackson.Employees;
 import com.sparta.rbf.employees_project2.jdbc.jackson.FileWriterFactory;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
-import com.sparta.rbf.employees_project2.jdbc.util.SQLQueries;
 
 import java.io.FileNotFoundException;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,7 +22,9 @@ public class App {
     public static void main(String[] args) {
         LogSetup.setup();
 
-        LoadEmployees();
+//        LoadEmployees();
+
+        LoadDepartments();
 
         mainMenuLoop();
     }
@@ -56,6 +56,7 @@ public class App {
         do {
             departmentChoice = getDepartmentMenuItems();
             System.out.println("\nDepartment chosen: " + convertChoiceToDepartmentName(departmentChoice));
+
             if (departmentChoice.equals("1")
                     || departmentChoice.equals("2")
                     || departmentChoice.equals("3")
@@ -83,6 +84,23 @@ public class App {
         EmployeeFormatter.populateEmployeeRepository(employees);
         for(Employee emp: EmployeeRepository.employees){
             System.out.println(emp.toString());
+        }
+        ConnectionManager.closeConnection();
+    }
+
+    private static void LoadDepartments() {
+        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
+        ResultSet departments = employeeDAO.getAllDepartments();
+        try {
+            while (departments.next()) {
+                String departmentId = departments.getString(1);
+                String departmentName = departments.getString(2);
+
+                Department department = new Department(departmentId,departmentName);
+                DepartmentRepository.addDepartment(department);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         ConnectionManager.closeConnection();
     }
@@ -121,15 +139,6 @@ public class App {
         try {
             LocalDate localDate = LocalDate.parse(date);
             return true;
-
-//            LocalDate today = LocalDate.now();
-//            if (today.isAfter(localDate)) {
-//                return true;
-//            }
-//            else {
-//                System.out.println("Need a date from the past");
-//                return false;
-//            }
         }
         catch (Exception e) {
             System.out.println("Date not valid");
@@ -201,22 +210,17 @@ public class App {
     private static String getDepartmentMenuItems() {
         Scanner input = new Scanner(System.in);
 
-        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
-        ResultSet departmentResultSet = employeeDAO.getDepartmentNames();
-
-        try {
-            int i = 1;
-            while (departmentResultSet.next()) {
-                String departmentNames = departmentResultSet.getString(2);
-                System.out.println("(" + i + ") " + departmentNames);
-                i++;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for(Department dept: DepartmentRepository.departments){
+            System.out.println("(" + convertDepartmentIdToNumbers(dept.getDepartmentId()) + ") " + dept.getDepartmentName());
         }
+
         System.out.print("------------------------"
                 + "\n(0) Return to main menu"
                 +"\n\nChoice: ");
         return input.nextLine();
+    }
+
+    private static String convertDepartmentIdToNumbers(String departmentId) {
+        return departmentId.replaceFirst("^\\D*(0*)", "");
     }
 }
