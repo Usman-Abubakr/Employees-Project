@@ -6,6 +6,7 @@ import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -27,14 +28,14 @@ public class App {
             choice = getMainMenuItems();
             switch(choice) {
                 case "1":
-//                    logger.log(Level.INFO, "User pressed \"Search employee from department\".");
+                    logger.log(Level.INFO, "User selected \"Search employee from department\".");
                     employeeDepartmentMenuLoop();
                     break;
                 case "2":
-//                    logger.log(Level.INFO, "User pressed \"Import employees from file\".");
+                    logger.log(Level.INFO, "User selected \"Import employees from file\".");
                     break;
                 case "0":
-//                    logger.log(Level.INFO, "User pressed \"Quit\"");
+                    logger.log(Level.INFO, "User selected \"Quit\"");
                     break;
                 default:
                     choice = getMainMenuItems();
@@ -169,52 +170,32 @@ public class App {
     }
 
     private static String convertChoiceToDepartmentName(String departmentChoice) {
-        switch(departmentChoice) {
-            case "1":
-                return "Marketing";
-            case "2":
-                return "Finance";
-            case "3":
-                return "Human Resources";
-            case "4":
-                return "Production";
-            case "5":
-                return "Development";
-            case "6":
-                return "Quality Management";
-            case "7":
-                return "Sales";
-            case "8":
-                return "Research";
-            case "9":
-                return "Customer Service";
-            default:
-                return "Department not found";
-        }
+        return switch (departmentChoice) {
+            case "1" -> "Marketing";
+            case "2" -> "Finance";
+            case "3" -> "Human Resources";
+            case "4" -> "Production";
+            case "5" -> "Development";
+            case "6" -> "Quality Management";
+            case "7" -> "Sales";
+            case "8" -> "Research";
+            case "9" -> "Customer Service";
+            default -> "Department not found";
+        };
     }
 
     private static String convertChoiceToDepartmentId(String departmentChoice) {
-        switch(departmentChoice) {
-            case "1":
-                return "d001";
-            case "2":
-                return "d002";
-            case "3":
-                return "d003";
-            case "4":
-                return "d004";
-            case "5":
-                return "d005";
-            case "6":
-                return "d006";
-            case "7":
-                return "d007";
-            case "8":
-                return "d008";
-            case "9":
-                return "d009";
-            default:
-                return "Department not found";
-        }
+        return switch (departmentChoice) {
+            case "1" -> "d001";
+            case "2" -> "d002";
+            case "3" -> "d003";
+            case "4" -> "d004";
+            case "5" -> "d005";
+            case "6" -> "d006";
+            case "7" -> "d007";
+            case "8" -> "d008";
+            case "9" -> "d009";
+            default -> "Department not found";
+        };
     }
 }
