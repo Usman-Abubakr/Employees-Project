@@ -1,0 +1,10 @@
+May 18, 2023 3:28:16 PM com.sparta.rbf.employees_project2.jdbc.util.PropertiesLoader getProperties
+CONFIG: Loaded properties for database connection.
+May 18, 2023 3:28:17 PM com.sparta.rbf.employees_project2.jdbc.ConnectionManager createConnection
+CONFIG: Established connection to database.
+May 18, 2023 3:28:19 PM com.sparta.rbf.employees_project2.jdbc.EmployeeDAO getAllEmployees
+INFO: Retrieved all employees from database.
+May 18, 2023 3:28:19 PM com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter populateEmployeeRepository
+CONFIG: Converting resultSet to Employee object.
+May 18, 2023 3:28:25 PM com.sparta.rbf.employees_project2.jdbc.ConnectionManager closeConnection
+CONFIG: Connection to database closed.
