@@ -23,11 +23,6 @@ public class EmployeeRepository {
     }
 
     public static ArrayList<Employee> getAllEmployees() {
-        logger.log(Level.INFO, "Retrieved all employees from repository.");
-        employees.add(employee);
-    }
-
-    public static ArrayList<Employee> getAllEmployees() {
         return employees;
     }
 }
