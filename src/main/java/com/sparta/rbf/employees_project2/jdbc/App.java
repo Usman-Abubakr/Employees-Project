@@ -42,6 +42,11 @@ public class App {
         }
         while (!choice.equals("0"));
     }
+    public static String getFileName(){
+        System.out.println("Enter the file name you would like to use: ");
+        Scanner scanner=new Scanner(System.in);
+        return scanner.nextLine();
+    }
 
     private static void employeeDepartmentMenuLoop() {
         String departmentChoice;

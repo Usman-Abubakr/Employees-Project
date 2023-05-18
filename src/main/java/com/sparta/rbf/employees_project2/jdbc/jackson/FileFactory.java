@@ -1,8 +1,6 @@
 package com.sparta.rbf.employees_project2.jdbc.jackson;
 
-import com.sparta.rbf.employees_project2.jdbc.jackson.Employees;
-
-import java.util.Scanner;
+import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
 
 public class FileFactory {
     public static void createFile(Employees employees) {
@@ -14,12 +12,6 @@ public class FileFactory {
             System.out.println("File name is invalid");
         }
     }
-    public static String getFileName(){
-        System.out.println("Enter the file name you would like to use: ");
-        Scanner scanner=new Scanner(System.in);
-        return scanner.nextLine();
-    }
-
     public static boolean isFileNameValid(String filename) {
         String regex_pattern = "^[A-za-z0-9.-]{1,255}$";
         boolean hasValidChars = filename.matches(regex_pattern);
