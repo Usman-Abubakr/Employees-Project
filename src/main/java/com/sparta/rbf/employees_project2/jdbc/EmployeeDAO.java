@@ -37,15 +37,33 @@ public class EmployeeDAO {
         return null;
     }
 
-    public void createEmployee(int empNo, Date birthDate, String firstName, String lastName, String gender, Date hireDate) {
+    public ResultSet getAllEmployeesInDepartmentWithinDates(String department, String dateFrom, String dateTo) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.SELECT_EMPLOYEES_IN_DEPARTMENT_WITHIN_DATES);
+            preparedStatement.setString(1, department);
+            preparedStatement.setString(2, dateFrom);
+            preparedStatement.setString(3, dateTo);
+            preparedStatement.setString(4, dateFrom);
+            preparedStatement.setString(5, dateTo);
+            preparedStatement.setString(6, dateFrom);
+            preparedStatement.setString(7, dateTo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void createEmployee(int empNo, String birthDate, String firstName, String lastName, String gender, String hireDate) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueries.CREATE);
             preparedStatement.setInt(1, empNo);
-            preparedStatement.setDate(2, birthDate);
+            preparedStatement.setString(2, birthDate);
             preparedStatement.setString(3, firstName);
             preparedStatement.setString(4, lastName);
             preparedStatement.setString(5, gender);
-            preparedStatement.setDate(6, hireDate);
+            preparedStatement.setString(6, hireDate);
             preparedStatement.executeUpdate();
             logger.log(Level.INFO, "Added an employee to the database.");
         } catch (SQLException e) {
