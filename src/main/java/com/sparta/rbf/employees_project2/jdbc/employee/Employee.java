@@ -1,8 +1,6 @@
 package com.sparta.rbf.employees_project2.jdbc.employee;
 
-
 import java.time.LocalDate;
-
 
 public class Employee {
     private int empNo;
