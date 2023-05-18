@@ -3,7 +3,6 @@ package com.sparta.rbf.employees_project2.jdbc;
 import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class EmployeeRepository {
     public static final ArrayList<Employee> employees = new ArrayList<>();
