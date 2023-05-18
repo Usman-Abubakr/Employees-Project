@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -60,6 +61,25 @@ public class EmployeeFormatter {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static ArrayList<Employee> resultSetToArrayList (ResultSet resultSet) {
+        logger.log(Level.CONFIG, "Converting resultSet to ArrayList<Employee>");
+        ArrayList<Employee> filteredEmployees=new ArrayList<>();
+        try {
+            while (resultSet.next()) {
+                int empNo=resultSet.getInt(1);
+                LocalDate birthDate = strToLocalDate(resultSet.getString(2));
+                String firstName = resultSet.getString(3);
+                String lastName = resultSet.getString(4);
+                Gender gender = strToGender(resultSet.getString(5));
+                LocalDate hireDate = strToLocalDate(resultSet.getString(6));
+                Employee employee = new Employee(empNo,firstName,lastName,gender,birthDate,hireDate);
+                filteredEmployees.add(employee);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filteredEmployees;
     }
 
 }
