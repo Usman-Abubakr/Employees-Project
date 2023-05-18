@@ -1,4 +1,4 @@
-package com.sparta.rbf.employees_project.logging;
+package com.sparta.rbf.employees_project2.jdbc.logging;
 
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -9,7 +9,7 @@ public class FileHandlerConfig {
     public static FileHandler getFileHandler() {
         if(fileHandler == null) {
             try {
-                fileHandler = new FileHandler("src/main/logs/employees_project/logFile.log", false);
+                fileHandler = new FileHandler("src/main/logs/employees_project2/logFile.log", false);
                 fileHandler.setLevel(Level.ALL);
                 fileHandler.setFormatter(new SimpleFormatter());
             } catch (Exception e) {
@@ -19,3 +19,4 @@ public class FileHandlerConfig {
         return fileHandler;
     }
 }
+
