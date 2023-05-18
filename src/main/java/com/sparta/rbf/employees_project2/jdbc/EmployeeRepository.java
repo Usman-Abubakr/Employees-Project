@@ -17,7 +17,6 @@ public class EmployeeRepository {
     }
 
     public static void addEmployee(Employee employee) {
-
         employees.add(employee);
         //logger.log(Level.INFO, employee.toString() + " added to repository.");
     }
