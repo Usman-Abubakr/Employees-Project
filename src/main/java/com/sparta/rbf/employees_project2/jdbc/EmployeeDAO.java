@@ -72,7 +72,7 @@ public class EmployeeDAO {
         }
     }
 
-    public ResultSet getDepartmentNames() {
+    public ResultSet getAllDepartments() {
         try {
             ResultSet resultSet = statement.executeQuery(SQLQueries.SELECT_ALL_DEPARTMENTS);
             logger.log(Level.INFO, "Retrieved all departments from database.");
