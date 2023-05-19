@@ -12,7 +12,6 @@ public class LogSetup {
 
         Logger rootLogger = Logger.getLogger("");
         rootLogger.addHandler(FileHandlerConfig.getFileHandler());
-        rootLogger.setLevel(Level.FINEST);
+        rootLogger.setLevel(Level.CONFIG);
     }
-
 }
