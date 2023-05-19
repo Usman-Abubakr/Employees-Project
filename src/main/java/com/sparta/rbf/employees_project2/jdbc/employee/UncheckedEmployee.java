@@ -100,4 +100,23 @@ public class UncheckedEmployee {
                 birthDate + "," +
                 hireDate;
     }
+
+    public int getEmpNoAsInt() {
+        return Integer.parseInt(this.empNo);
+    }
+    public String getFirstName() {
+        return this.firstName;
+    }
+    public String getLastName() {
+        return this.lastName;
+    }
+    public String getGender() {
+        return this.gender;
+    }
+    public String getBirthDate() {
+        return this.birthDate;
+    }
+    public String getHireDate() {
+        return this.hireDate;
+    }
 }

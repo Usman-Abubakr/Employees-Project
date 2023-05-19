@@ -2,6 +2,8 @@ package com.sparta.rbf.employees_project2.jdbc.file_input;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sparta.rbf.employees_project2.jdbc.CSVFileWriter;
+import com.sparta.rbf.employees_project2.jdbc.ConnectionManager;
 import com.sparta.rbf.employees_project2.jdbc.EmployeeDAO;
 import com.sparta.rbf.employees_project2.jdbc.employee.UncheckedEmployee;
 
@@ -31,18 +33,21 @@ public class ReadingXML implements FileReading{
                 if (!duplicateEmployees.contains(employee)) {
                     uniqueEmployees.add(employee);
                 } else {
+//                    CSVFileWriter.writeToCSV(employee, "");
                     // call write to csv, this will write the duplicates employees
                 }
             }
 
+            EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
             for (UncheckedEmployee employee : uniqueEmployees) {
                 if (employee.isValid()) {
-//                    EmployeeDAO.createEmployee(employee.(), )
+                    employeeDAO.createEmployee(employee.getEmpNoAsInt(), employee.getBirthDate(), employee.getFirstName(), employee.getLastName(), employee.getGender(), employee.getHireDate());
                     System.out.println(employee);
                 } else {
                     // call write to csv, this will write the corrupted employees
                 }
             }
+            ConnectionManager.closeConnection();
         } catch (IOException e) {
             e.printStackTrace();
         }
