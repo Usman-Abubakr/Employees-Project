@@ -19,7 +19,7 @@ import java.util.Map;
 
 public class ReadingXML implements FileReading{
     @Override
-    public void getEmployeesFromFile() {
+    public void getEmployeesFromFile(String fileName) {
         File xmlFile = new File("src/main/resources/employees03.xml");
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.registerModule(new JavaTimeModule());
