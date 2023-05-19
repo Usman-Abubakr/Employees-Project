@@ -93,11 +93,11 @@ public class UncheckedEmployee {
 
     @Override
     public String toString() {
-        return "Employee ID: " + empNo
-                + ", Firstname: " + firstName
-                + ", Lastname: " + lastName
-                + ", Gender: " + gender
-                + ", Date of birth: " + birthDate
-                + ", Hire Date: " + hireDate;
+        return empNo + ","
+                + firstName + "," +
+                lastName + "," +
+                gender + "," +
+                birthDate + "," +
+                hireDate;
     }
 }
