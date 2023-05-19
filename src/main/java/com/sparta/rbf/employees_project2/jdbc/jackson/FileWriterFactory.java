@@ -20,16 +20,12 @@ public class FileWriterFactory {
      */
     public static final Logger logger = Logger.getLogger(FileWriterFactory.class.getName());
 
-    //To be replaced by chamara's code (see screenshot)
-//    public static void createFile(Employees employees) throws FileNotFoundException {
-//        String fileName = getFileName();
-//        String fileExtension = getFileExtension(fileName).toLowerCase();
-//        if (isFileNameValid(fileName) && isFileExtensionValid(fileExtension)) {
-//            getMapper(fileExtension, fileName, employees);
-//        } else {
-//            throw new FileNotFoundException();
-//        }
-//    }
+    public static void createFile(Employees employees) throws FileNotFoundException {
+        String fileExtension = getFileExtension();
+        String fileName=createFileName(fileExtension, FileNameValidation.getFileName());
+        ObjectMapper mapper=getMapper(fileExtension);
+        FileWriterFactory.saveToFile(mapper, employees,fileName);
+    }
 
     private static boolean isFileExtensionValid(String fileExtension) {
         return false;
@@ -61,5 +57,6 @@ public class FileWriterFactory {
             e.printStackTrace();
         }
     }
+
 
 }

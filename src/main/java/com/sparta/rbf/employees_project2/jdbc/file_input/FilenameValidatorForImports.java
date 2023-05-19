@@ -21,7 +21,10 @@ public class FilenameValidatorForImports {
         }
         return hasValidChars && count == 1;
     }
-
+    public static String getFileExtension(String fileName) {
+        String[] fileNameExtension = fileName.split("\\.");
+        return fileNameExtension[fileNameExtension.length - 1];
+    }
     public static boolean isFileExtensionValid(String fileExtension) {
         return fileExtension.equals("xml") || fileExtension.equals("json")||fileExtension.equals("csv");
     }

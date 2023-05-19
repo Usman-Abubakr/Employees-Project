@@ -5,14 +5,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.*;
+import static com.sparta.rbf.employees_project2.jdbc.file_input.FilenameValidatorForImports.isFileExtensionValid;
+import static com.sparta.rbf.employees_project2.jdbc.file_input.FilenameValidatorForImports.isFileNameValid;
+
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.getFileExtension;
 
 public class FileReaderFactory {
     public static final Logger logger = Logger.getLogger(FileReaderFactory.class.getName());
 
     public void readFile(String filename) throws FileNotFoundException{
-        String fileName = getFileName();
-        String fileExtension = getFileExtension(fileName).toLowerCase();
+        String fileName = FilenameValidatorForImports.getFileName();
+        String fileExtension = FilenameValidatorForImports.getFileExtension(fileName).toLowerCase();
         if (isFileNameValid(fileName)&&isFileExtensionValid(fileExtension)) {
             getFileReader(filename, fileExtension);
         } else {
