@@ -15,7 +15,7 @@ public class FilenameValidation {
     }
 
     public static boolean isFileExtensionValid(String fileExtension) {
-        return fileExtension.equals("xml") || fileExtension.equals("json") || fileExtension.equals("csv");
+        return fileExtension.equals("xml") || fileExtension.equals("json");
     }
 
     public static String getFileExtension(String fileName) {

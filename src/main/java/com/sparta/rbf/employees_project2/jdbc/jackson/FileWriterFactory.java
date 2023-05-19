@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.getFileExtension;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.*;
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FilenameValidation.getFileExtension;
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FilenameValidation.*;
 
 public class FileWriterFactory {
     /*
@@ -20,16 +20,16 @@ public class FileWriterFactory {
      */
     public static final Logger logger = Logger.getLogger(FileWriterFactory.class.getName());
 
-    //To be replaced by chamara's code (see screenshot)
-//    public static void createFile(Employees employees) throws FileNotFoundException {
-//        String fileName = getFileName();
-//        String fileExtension = getFileExtension(fileName).toLowerCase();
-//        if (isFileNameValid(fileName) && isFileExtensionValid(fileExtension)) {
-//            getMapper(fileExtension, fileName, employees);
-//        } else {
-//            throw new FileNotFoundException();
-//        }
-//    }
+//    To be replaced by chamara's code (see screenshot)
+    public static void createFile(Employees employees) throws FileNotFoundException {
+        String fileName = getFileName();
+        String fileExtension = getFileExtension(fileName).toLowerCase();
+        if (isFileNameValid(fileName) && isFileExtensionValid(fileExtension)) {
+            getMapper(fileExtension, fileName, employees);
+        } else {
+            throw new FileNotFoundException();
+        }
+    }
 
     private static boolean isFileExtensionValid(String fileExtension) {
         return false;

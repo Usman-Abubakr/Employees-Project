@@ -22,7 +22,7 @@ public class App {
     public static void main(String[] args) {
         LogSetup.setup();
 
-//        LoadEmployees();
+        LoadEmployees();
 
         LoadDepartments();
 
@@ -75,9 +75,6 @@ public class App {
         ResultSet employees = employeeDAO.getAllEmployees();
 
         EmployeeFormatter.populateEmployeeRepository(employees);
-        for(Employee emp: EmployeeRepository.employees){
-            System.out.println(emp.toString());
-        }
         ConnectionManager.closeConnection();
     }
 

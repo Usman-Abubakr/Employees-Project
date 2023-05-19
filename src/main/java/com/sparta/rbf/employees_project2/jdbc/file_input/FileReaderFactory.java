@@ -5,7 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.*;
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FilenameValidation.*;
 
 public class FileReaderFactory {
     public static final Logger logger = Logger.getLogger(FileReaderFactory.class.getName());
