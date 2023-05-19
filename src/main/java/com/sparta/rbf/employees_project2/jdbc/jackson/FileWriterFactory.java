@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.getFileExtension;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.*;
+
+
 
 public class FileWriterFactory {
     /*
@@ -20,11 +20,13 @@ public class FileWriterFactory {
      */
     public static final Logger logger = Logger.getLogger(FileWriterFactory.class.getName());
 
+
     public static void createFile(Employees employees) throws FileNotFoundException {
-        String fileExtension = getFileExtension();
-        String fileName=createFileName(fileExtension, FileNameValidation.getFileName());
+        String fileExtension = FileNameValidation.getFileExtensionScan();
+        String fileName=FileNameValidation.createFileName(fileExtension, FileNameValidation.getFileName());
         ObjectMapper mapper=getMapper(fileExtension);
         FileWriterFactory.saveToFile(mapper, employees,fileName);
+
     }
 
     private static boolean isFileExtensionValid(String fileExtension) {
@@ -38,8 +40,6 @@ public class FileWriterFactory {
             new MappingXML().saveToFile(employees, fileName);
         }
     }
-
-
     public static ObjectMapper getMapper(String fileExtension) {
         if(fileExtension.equals("xml")) {
             return new XmlMapper();

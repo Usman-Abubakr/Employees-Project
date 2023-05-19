@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class FileNameValidation {
-    public static void main(String[] args) {
-    }
 
     public static String createFileName(String fileExtension, String filename) {
         return filename + "." + fileExtension;
@@ -28,11 +26,16 @@ public class FileNameValidation {
         return removeIllegalCharacters(input);
     }
 
+
     public static String removeIllegalCharacters(String input) {
         return input.replaceAll("[\\.\\\\/:*?\"<>|]", "_");
     }
+    public static boolean isFileExtensionValid(String fileExtension){
+        return fileExtension.equals("xml") || fileExtension.equals("json");
 
-    public static String getFileExtension() throws IllegalArgumentException {
+    }
+
+    public static String getFileExtensionScan() throws IllegalArgumentException {
         Scanner scanner = new Scanner(System.in);
         String input = "";
         System.out.println("Enter the file extension you would like to use: (json / xml) ");

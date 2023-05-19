@@ -10,10 +10,9 @@ public class FilenameValidatorForImports {
     }
 
     public static boolean isFileNameValid(String filename) {
-        String regex_pattern = "^[A-za-z0-9.-]{1,255}$";
+        String regex_pattern = "^[^~)('!*<>:;,?\"*|/]+$";
         boolean hasValidChars = filename.matches(regex_pattern);
         int count = 0;
-
         for (char c : filename.toCharArray()) {
             if (c == '.') {
                 count++;

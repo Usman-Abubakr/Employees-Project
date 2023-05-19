@@ -1,5 +1,6 @@
 package com.sparta.rbf.employees_project2.jdbc.file_input;
 
+import com.sparta.rbf.employees_project2.jdbc.CSVFileWriter;
 import com.sparta.rbf.employees_project2.jdbc.ConnectionManager;
 import com.sparta.rbf.employees_project2.jdbc.EmployeeDAO;
 import com.sparta.rbf.employees_project2.jdbc.employee.UncheckedEmployee;
@@ -28,7 +29,7 @@ public class ReadingUtility {
             if (!duplicateEmployees.contains(employee)) {
                 uniqueEmployees.add(employee);
             } else {
-//                    CSVFileWriter.writeToCSV(employee, "");
+                    CSVFileWriter.writeToCSV(employee, fileName);
                 // call write to csv, this will write the duplicates employees
             }
         }
@@ -41,6 +42,7 @@ public class ReadingUtility {
             if (employee.isValid()) {
                 employeeDAO.createEmployee(employee.getEmpNoAsInt(), employee.getBirthDate(), employee.getFirstName(), employee.getLastName(), employee.getGender(), employee.getHireDate());
             } else {
+                CSVFileWriter.writeToCSV(employee, fileName);
                 // call write to csv, this will write the corrupted employees
             }
         }

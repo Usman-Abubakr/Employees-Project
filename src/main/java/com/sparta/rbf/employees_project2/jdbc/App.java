@@ -3,6 +3,7 @@ package com.sparta.rbf.employees_project2.jdbc;
 import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 import com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter;
 import com.sparta.rbf.employees_project2.jdbc.employee.Gender;
+import com.sparta.rbf.employees_project2.jdbc.file_input.FileReaderFactory;
 import com.sparta.rbf.employees_project2.jdbc.jackson.Employees;
 import com.sparta.rbf.employees_project2.jdbc.jackson.FileWriterFactory;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
@@ -22,7 +23,7 @@ public class App {
     public static void main(String[] args) {
         LogSetup.setup();
 
-//        LoadEmployees();
+        LoadEmployees();
 
         LoadDepartments();
 
@@ -38,7 +39,16 @@ public class App {
                     logger.log(Level.INFO, "User selected \"Search employee from department\".");
                     employeeDepartmentMenuLoop();
                 }
-                case "2" -> logger.log(Level.INFO, "User selected \"Import employees from file\".");
+                case "2" -> {
+                    logger.log(Level.INFO, "User selected \"Import employees from file\".");
+                    FileReaderFactory fileReaderFactory=new FileReaderFactory();
+                    try {
+                        fileReaderFactory.readFile();
+                    } catch (FileNotFoundException e) {
+                        logger.log(Level.WARNING,"File cannot be found");
+                        System.out.println("Filename entered cannot be found. Please try again");
+                    }
+                }
                 case "0" -> logger.log(Level.INFO, "User selected \"Quit\"");
                 default -> choice = getMainMenuItems();
             }
@@ -75,9 +85,6 @@ public class App {
         ResultSet employees = employeeDAO.getAllEmployees();
 
         EmployeeFormatter.populateEmployeeRepository(employees);
-        for(Employee emp: EmployeeRepository.employees){
-            System.out.println(emp.toString());
-        }
         ConnectionManager.closeConnection();
     }
 
