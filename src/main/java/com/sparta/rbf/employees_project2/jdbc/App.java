@@ -4,8 +4,8 @@ import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 import com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
 
+
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
