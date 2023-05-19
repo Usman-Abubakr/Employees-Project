@@ -157,36 +157,6 @@ public class App {
         }
     }
 
-    private static String convertChoiceToDepartmentName(String departmentChoice) {
-        return switch (departmentChoice) {
-            case "1" -> "Marketing";
-            case "2" -> "Finance";
-            case "3" -> "Human Resources";
-            case "4" -> "Production";
-            case "5" -> "Development";
-            case "6" -> "Quality Management";
-            case "7" -> "Sales";
-            case "8" -> "Research";
-            case "9" -> "Customer Service";
-            default -> "Department not found";
-        };
-    }
-
-    private static String convertChoiceToDepartmentId(String departmentChoice) {
-        return switch (departmentChoice) {
-            case "1" -> "d001";
-            case "2" -> "d002";
-            case "3" -> "d003";
-            case "4" -> "d004";
-            case "5" -> "d005";
-            case "6" -> "d006";
-            case "7" -> "d007";
-            case "8" -> "d008";
-            case "9" -> "d009";
-            default -> "Department not found";
-        };
-    }
-
     private static String getMainMenuItems() {
         Scanner input = new Scanner(System.in);
 
