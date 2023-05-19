@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 @JacksonXmlRootElement(localName = "employee")
 public class UncheckedEmployee {
@@ -33,6 +34,61 @@ public class UncheckedEmployee {
 
     // Default constructor
     public UncheckedEmployee() {
+    }
+
+    public String uniqueAttributes() {
+        return empNo + "_" + firstName + "_" + lastName + "_" + gender + "_" + birthDate + "_" + hireDate;
+    }
+
+    public boolean isValid() {
+        return empNoIsValid() && firstNameIsValid() && lastNameIsValid() && genderIsValid() && birthDateIsValid() && hireDateIsValid();
+    }
+
+    private boolean empNoIsValid() {
+        return empNo != null && empNo.matches("^\\d{1,8}$");
+    }
+
+    private boolean firstNameIsValid() {
+        return firstName != null && firstName.matches("^[A-Za-z -]+$") && Character.isUpperCase(firstName.charAt(0));
+    }
+
+    private boolean lastNameIsValid() {
+        return lastName != null && lastName.matches("^[A-Za-z -]+$") && Character.isUpperCase(lastName.charAt(0));
+    }
+
+    private boolean genderIsValid() {
+        return gender != null && (gender.equals(Gender.M.toString()) || gender.equals(Gender.F.toString()));
+    }
+
+    private boolean birthDateIsValid() {
+        if (birthDate == null) {
+            return false;
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(birthDate);
+            LocalDate minDate = LocalDate.of(1900, 1, 1);
+            LocalDate currentDate = LocalDate.now();
+
+            return date.isAfter(minDate) && date.isBefore(currentDate);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private boolean hireDateIsValid() {
+        if (hireDate == null || birthDate == null) {
+            return false;
+        }
+
+        try {
+            LocalDate hire = LocalDate.parse(hireDate);
+            LocalDate birth = LocalDate.parse(birthDate);
+
+            return hire.isAfter(birth);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     @Override
