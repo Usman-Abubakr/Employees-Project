@@ -1,44 +1,33 @@
 package com.sparta.rbf.employees_project2.jdbc.file_input;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.sparta.rbf.employees_project2.jdbc.file_input.FilenameValidatorForImports.*;
-import static com.sparta.rbf.employees_project2.jdbc.jackson.FilenameValidation.getFileExtension;
+import static com.sparta.rbf.employees_project2.jdbc.App.getFileName;
+import static com.sparta.rbf.employees_project2.jdbc.jackson.FileNameValidation.*;
 
 public class FileReaderFactory {
     public static final Logger logger = Logger.getLogger(FileReaderFactory.class.getName());
 
-    public void readFile() throws IllegalArgumentException {
+    public void readFile(String filename) throws FileNotFoundException{
         String fileName = getFileName();
         String fileExtension = getFileExtension(fileName).toLowerCase();
-        if (isFileNameValid(fileName) && isFileExtensionValid(fileExtension)) {
-            FileReading fileReader=getFileReader(fileExtension);
-            fileReader.getEmployeesFromFile(fileName);
-            logger.log(Level.INFO,fileName+"has been created");
+        if (isFileNameValid(fileName)&&isFileExtensionValid(fileExtension)) {
+            getFileReader(filename, fileExtension);
         } else {
-            logger.log(Level.WARNING, fileName+"cannot be used");
-            throw new IllegalArgumentException();
+            throw new FileNotFoundException();
         }
     }
-    public static String createCorruptFileName(String fileName) {
-        String[] fileNameSplit = fileName.split("\\.");
-        String dateAndTime = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date());
-        dateAndTime = dateAndTime.replaceAll("/", "-");
-        dateAndTime = dateAndTime.replaceAll(" ", "_");
-        dateAndTime = dateAndTime.replaceAll(":", "-");
-        return fileNameSplit[0] + "_corruptedData_" + dateAndTime + ".csv";
-    }
 
-    public static FileReading getFileReader(String fileExtension) {
-        if (fileExtension.equals("csv")) {
-            return new ReadingCSV();
+    public static void getFileReader(String filename, String fileExtension){
+        if(fileExtension.equals("csv")){
+            new ReadingCSV();
         } else if (fileExtension.equals("json")) {
-            return new ReadingJSON();
+            new ReadingJSON();
+        } else if (fileExtension.equals("xml")) {
+            new ReadingXML();
         }
-
-        return new ReadingXML();
     }
+
 }

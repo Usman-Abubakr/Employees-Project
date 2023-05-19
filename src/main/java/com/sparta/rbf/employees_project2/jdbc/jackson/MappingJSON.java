@@ -17,6 +17,7 @@ public class MappingJSON implements JacksonMapping{
 
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(new File("src/main/resources/" + fileName),employees.getEmployees());
+            System.out.println(String.format("File: %s, is saved in: src/main/resources/", fileName));
         } catch (IOException e) {
             e.printStackTrace();
         }

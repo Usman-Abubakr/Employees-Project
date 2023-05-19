@@ -2,10 +2,15 @@ package com.sparta.rbf.employees_project2.jdbc;
 
 import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 import com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter;
+import com.sparta.rbf.employees_project2.jdbc.employee.Gender;
+import com.sparta.rbf.employees_project2.jdbc.jackson.Employees;
+import com.sparta.rbf.employees_project2.jdbc.jackson.FileWriterFactory;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
 
-
+import java.io.FileNotFoundException;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;
@@ -17,7 +22,9 @@ public class App {
     public static void main(String[] args) {
         LogSetup.setup();
 
-        LoadEmployees();
+//        LoadEmployees();
+
+        LoadDepartments();
 
         mainMenuLoop();
     }
@@ -45,45 +52,67 @@ public class App {
     }
 
     private static void employeeDepartmentMenuLoop() {
-        String departmentChoice;
+        int departmentChoice;
         do {
             departmentChoice = getDepartmentMenuItems();
-            System.out.println("\nDepartment chosen: " + convertChoiceToDepartmentName(departmentChoice));
-            if (departmentChoice.equals("1")
-                    || departmentChoice.equals("2")
-                    || departmentChoice.equals("3")
-                    || departmentChoice.equals("4")
-                    || departmentChoice.equals("5")
-                    || departmentChoice.equals("6")
-                    || departmentChoice.equals("7")
-                    || departmentChoice.equals("8")
-                    || departmentChoice.equals("9")) {
+            System.out.println("\nDepartment chosen: " + convertNumberToDepartmentName(departmentChoice) + "\n");
+
+            //Check if department id exists
+            if (!convertNumberToDepartmentName(departmentChoice).equals("Department not found.")) {
                 String startDate = getDate("start");
                 String endDate = getDate("end");
 
                 if (isStartDateBeforeEndDate(startDate, endDate)) {
-                    getEmployeeData(startDate, endDate, convertChoiceToDepartmentId(departmentChoice));
+                    getEmployeeData(startDate, endDate, convertNumberToDepartmentId(departmentChoice));
                 }
             }
         }
-        while (!departmentChoice.equals("0"));
+        while (departmentChoice != 0);
     }
 
     private static void LoadEmployees() {
         EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
         ResultSet employees = employeeDAO.getAllEmployees();
-        ConnectionManager.closeConnection();
 
         EmployeeFormatter.populateEmployeeRepository(employees);
         for(Employee emp: EmployeeRepository.employees){
             System.out.println(emp.toString());
         }
+        ConnectionManager.closeConnection();
+    }
+
+    private static void LoadDepartments() {
+        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
+        ResultSet departments = employeeDAO.getAllDepartments();
+        try {
+            while (departments.next()) {
+                String departmentId = departments.getString(1);
+                String departmentName = departments.getString(2);
+
+                Department department = new Department(departmentId,departmentName);
+                DepartmentRepository.addDepartment(department);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ConnectionManager.closeConnection();
     }
 
     private static void getEmployeeData(String startDate, String endDate, String departmentId) {
         System.out.println("\nLooking for employees in " + departmentId + " department, from " + startDate + " to " + endDate);
 
+        EmployeeDAO employeeDAO = new EmployeeDAO(ConnectionManager.createConnection());
+        ResultSet employeesResultSet = employeeDAO.getAllEmployeesInDepartmentWithinDates(departmentId, startDate, endDate);
 
+        ArrayList<Employee> arrayList = EmployeeFormatter.resultSetToArrayList(employeesResultSet);
+        Employees employees = new Employees(arrayList);
+        try {
+            FileWriterFactory.createFile(employees);
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File input incorrect");
+        }
+        ConnectionManager.closeConnection();
     }
 
     private static String getDate(String startOrEndDate) {
@@ -103,15 +132,6 @@ public class App {
         try {
             LocalDate localDate = LocalDate.parse(date);
             return true;
-
-//            LocalDate today = LocalDate.now();
-//            if (today.isAfter(localDate)) {
-//                return true;
-//            }
-//            else {
-//                System.out.println("Need a date from the past");
-//                return false;
-//            }
         }
         catch (Exception e) {
             System.out.println("Date not valid");
@@ -137,36 +157,6 @@ public class App {
         }
     }
 
-    private static String convertChoiceToDepartmentName(String departmentChoice) {
-        return switch (departmentChoice) {
-            case "1" -> "Marketing";
-            case "2" -> "Finance";
-            case "3" -> "Human Resources";
-            case "4" -> "Production";
-            case "5" -> "Development";
-            case "6" -> "Quality Management";
-            case "7" -> "Sales";
-            case "8" -> "Research";
-            case "9" -> "Customer Service";
-            default -> "Department not found";
-        };
-    }
-
-    private static String convertChoiceToDepartmentId(String departmentChoice) {
-        return switch (departmentChoice) {
-            case "1" -> "d001";
-            case "2" -> "d002";
-            case "3" -> "d003";
-            case "4" -> "d004";
-            case "5" -> "d005";
-            case "6" -> "d006";
-            case "7" -> "d007";
-            case "8" -> "d008";
-            case "9" -> "d009";
-            default -> "Department not found";
-        };
-    }
-
     private static String getMainMenuItems() {
         Scanner input = new Scanner(System.in);
 
@@ -180,23 +170,41 @@ public class App {
         return input.nextLine();
     }
 
-    private static String getDepartmentMenuItems() {
+    private static int getDepartmentMenuItems() {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("\nEnter a department number:"
-                + "\n(1) Marketing"
-                + "\n(2) Finance"
-                + "\n(3) Human Resources"
-                + "\n(4) Production"
-                + "\n(5) Development"
-                + "\n(6) Quality Management"
-                + "\n(7) Sales"
-                + "\n(8) Research"
-                + "\n(9) Customer Service"
-                + "\n------------------------"
+        for(Department dept: DepartmentRepository.departments){
+            System.out.println("(" + convertDepartmentIdToNumbers(dept.getDepartmentId()) + ") " + dept.getDepartmentName());
+        }
+
+        System.out.print("------------------------"
                 + "\n(0) Return to main menu"
-                + "\n");
-        System.out.print("Choice: ");
-        return input.nextLine();
+                +"\n\nChoice: ");
+
+        int choice = -1;
+        try {
+             choice = input.nextInt();
+        }
+        catch (Exception e) {
+            System.out.println("Not a valid department.");
+        }
+        return choice;
+    }
+
+    private static int convertDepartmentIdToNumbers(String departmentId) {
+        return Integer.parseInt(departmentId.replaceFirst("^\\D*(0*)", ""));
+    }
+
+    private static String convertNumberToDepartmentId(int number) {
+        return String.format("d%03d", number);
+    }
+
+    private static String convertNumberToDepartmentName(int number) {
+        for(Department dept: DepartmentRepository.departments){
+            if (dept.getDepartmentId().equals(convertNumberToDepartmentId(number))) {
+                return dept.getDepartmentName();
+            }
+        }
+        return "Department not found.";
     }
 }
