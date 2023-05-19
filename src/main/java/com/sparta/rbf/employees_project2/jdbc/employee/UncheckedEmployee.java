@@ -35,8 +35,14 @@ public class UncheckedEmployee {
     // Default constructor
     public UncheckedEmployee() {
     }
-
-
+    public UncheckedEmployee(String empNo, String birthDate, String firstName, String lastName, String gender, String hireDate) {
+        this.empNo = empNo;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.hireDate = hireDate;
+    }
 
     public String uniqueAttributes() {
         return empNo + "_" + firstName + "_" + lastName + "_" + gender + "_" + birthDate + "_" + hireDate;

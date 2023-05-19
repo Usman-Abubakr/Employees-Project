@@ -24,26 +24,18 @@ public class ReadingCSV implements FileReading{
     public void getEmployeesFromFile(String fileName) {
         File file = new File(filesDirectory + fileName);
         List<UncheckedEmployee> employees = new ArrayList<UncheckedEmployee>();
+
         try(BufferedReader reader=new BufferedReader(new FileReader(file))) {
             String employeeLine;
             while((employeeLine=reader.readLine())!=null){
                 String[] splitEmployeeLine = employeeLine.split(",");
-                UncheckedEmployee uncheckedEmployee = new UncheckedEmployee();
-//                employees.add(uncheckedEmployee)
-                //assign values with setters from hussein
-
-               /* if(uncheckedEmployee is corrupt)
-                        CSVFileWriter.writeToCSV(uncheckedEmployee,filename);
-                  else
-                        add to EmployeeRepository.addEmployees
-                */
+                UncheckedEmployee uncheckedEmployee = new UncheckedEmployee(splitEmployeeLine[0], splitEmployeeLine[1], splitEmployeeLine[2], splitEmployeeLine[3], splitEmployeeLine[4], splitEmployeeLine[5]);
+                employees.add(uncheckedEmployee);
             }
-            /*
-                while read line isnt null
-                readline->
-                    if validation isnt passed
-                    send to csv writer
-             */
+            List<UncheckedEmployee> duplicateEmployees = ReadingUtility.getDuplicates(employees);
+            UncheckedEmployee[] employeesArray = employees.toArray(new UncheckedEmployee[0]);
+            List<UncheckedEmployee> uniqueEmployees = ReadingUtility.removeDuplicates(employeesArray, duplicateEmployees, fileName);
+            ReadingUtility.insertValidEmployeesIntoDatabase(uniqueEmployees, fileName);
             reader.close();
         } catch (IOException e) {
             logger.log(Level.WARNING,"Corrupt records cannot read from employees01.csv");
