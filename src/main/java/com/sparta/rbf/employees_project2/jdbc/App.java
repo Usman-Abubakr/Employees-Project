@@ -180,7 +180,15 @@ public class App {
         System.out.print("------------------------"
                 + "\n(0) Return to main menu"
                 +"\n\nChoice: ");
-        return input.nextInt();
+
+        int choice = -1;
+        try {
+             choice = input.nextInt();
+        }
+        catch (Exception e) {
+            System.out.println("Not a valid department.");
+        }
+        return choice;
     }
 
     private static int convertDepartmentIdToNumbers(String departmentId) {
