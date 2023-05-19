@@ -1,0 +1,16 @@
+May 19, 2023 12:41:53 PM com.sparta.rbf.employees_project2.jdbc.util.PropertiesLoader getProperties
+CONFIG: Loaded properties for database connection.
+May 19, 2023 12:41:55 PM jdk.internal.event.EventHelper logX509CertificateEvent
+FINE: X509Certificate: Alg:SHA256withRSA, Serial:2, Subject:CN=MySQL_Server_8.0.33_Auto_Generated_Server_Certificate, Issuer:CN=MySQL_Server_8.0.33_Auto_Generated_CA_Certificate, Key type:RSA, Length:2048, Cert Id:1299509483, Valid from:15/05/2023, 16:11, Valid until:12/05/2033, 16:11
+May 19, 2023 12:41:55 PM jdk.internal.event.EventHelper logX509CertificateEvent
+FINE: X509Certificate: Alg:SHA256withRSA, Serial:1, Subject:CN=MySQL_Server_8.0.33_Auto_Generated_CA_Certificate, Issuer:CN=MySQL_Server_8.0.33_Auto_Generated_CA_Certificate, Key type:RSA, Length:2048, Cert Id:349227996, Valid from:15/05/2023, 16:11, Valid until:12/05/2033, 16:11
+May 19, 2023 12:41:55 PM jdk.internal.event.EventHelper logTLSHandshakeEvent
+FINE:  TLSHandshake: localhost:3306, TLSv1.3, TLS_AES_256_GCM_SHA384, 1299509483
+May 19, 2023 12:41:55 PM com.sparta.rbf.employees_project2.jdbc.ConnectionManager createConnection
+CONFIG: Established connection to database.
+May 19, 2023 12:41:56 PM com.sparta.rbf.employees_project2.jdbc.EmployeeDAO getAllEmployees
+INFO: Retrieved all employees from database.
+May 19, 2023 12:41:56 PM com.sparta.rbf.employees_project2.jdbc.ConnectionManager closeConnection
+CONFIG: Connection to database closed.
+May 19, 2023 12:41:56 PM com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter populateEmployeeRepository
+CONFIG: Converting resultSet to Employee object.

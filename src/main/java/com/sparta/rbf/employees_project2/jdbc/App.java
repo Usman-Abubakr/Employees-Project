@@ -2,13 +2,10 @@ package com.sparta.rbf.employees_project2.jdbc;
 
 import com.sparta.rbf.employees_project2.jdbc.employee.Employee;
 import com.sparta.rbf.employees_project2.jdbc.employee.EmployeeFormatter;
-import com.sparta.rbf.employees_project2.jdbc.file_input.FileReaderFactory;
 import com.sparta.rbf.employees_project2.jdbc.logging.LogSetup;
-import com.sparta.rbf.employees_project2.jdbc.file_input.ReadingXML;
 
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.time.LocalDate;

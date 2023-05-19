@@ -6,42 +6,47 @@ import com.sparta.rbf.employees_project2.jdbc.employee.UncheckedEmployee;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.sparta.rbf.employees_project2.jdbc.employee.UncheckedEmployee;
 
-public class ReadingCSV implements FileReading{//method taken from EmployeeFactory.java in employee_project
-    // returns an array containing numEmployees Strings, each representing an Employee as a row from the CSV file
-    // 1 <= numEmployees <= 1000
-    // may throw IOExceptions, which need to be dealt with in the client code
-    // employees.csv should be in the src/main/resources folder in the project
-//    public static String[] getEmployeesFromFile(int numEmployees) throws IOException {
-//        if (numEmployees < 1 || numEmployees > 1000)
-//            throw new IllegalArgumentException("Argument 'numEmployees' must be between 1 and 1000");
-//        String employeeLine;
-//        List<String> result = new ArrayList<>();
-//        BufferedReader f = new BufferedReader(new FileReader("src/main/resources/employees.csv"));
-//        // read all the records from the file and add them to the list
-//        f.readLine();
-//        while ((employeeLine = f.readLine()) != null)
-//            result.add(employeeLine);
-//        // randomise
-//        Collections.shuffle(result);
-//        // return the first numEmployees values as an array
-//        return result.subList(0,numEmployees).toArray(new String[0]);
-//    }
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+public class ReadingCSV implements FileReading{
+    public static final Logger logger = Logger.getLogger(ReadingCSV.class.getName());
     @Override
     public void getEmployeesFromFile(String fileName) {
-        File jsonFile = new File(filesDirectory + fileName);
-        ObjectMapper jsonMapper = new ObjectMapper();
-        jsonMapper.registerModule(new JavaTimeModule());
-        try  {
-            UncheckedEmployee[] employees = jsonMapper.readValue(jsonFile, UncheckedEmployee[].class);
-            List<UncheckedEmployee> duplicateEmployees = ReadingUtility.getDuplicates(Arrays.asList(employees));
-            List<UncheckedEmployee> uniqueEmployees = ReadingUtility.removeDuplicates(employees, duplicateEmployees, fileName);
-            ReadingUtility.insertValidEmployeesIntoDatabase(uniqueEmployees, fileName);
+        File file = new File(filesDirectory + fileName);
+        List<UncheckedEmployee> employees = new ArrayList<UncheckedEmployee>();
+        try(BufferedReader reader=new BufferedReader(new FileReader(file))) {
+            String employeeLine;
+            while((employeeLine=reader.readLine())!=null){
+                String[] splitEmployeeLine = employeeLine.split(",");
+                UncheckedEmployee uncheckedEmployee = new UncheckedEmployee();
+//                employees.add(uncheckedEmployee)
+                //assign values with setters from hussein
+
+               /* if(uncheckedEmployee is corrupt)
+                        CSVFileWriter.writeToCSV(uncheckedEmployee,filename);
+                  else
+                        add to EmployeeRepository.addEmployees
+                */
+            }
+            /*
+                while read line isnt null
+                readline->
+                    if validation isnt passed
+                    send to csv writer
+             */
+            reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.WARNING,"Corrupt records cannot read from employees01.csv");
         }
     }
 }
